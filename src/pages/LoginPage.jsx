@@ -1,47 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 import bgSidebarMobile from "../assets/images/bg-sidebar-mobile.svg";
+import bgSidebarDesktop from "../assets/images/bg-sidebar-desktop.svg";
+import StepIndicators from "../components/StepIndicators";
+import Step1 from "../components/Step1";
+import Step2 from "../components/Step2";
+import Step3 from "../components/Step3";
+import Step4 from "../components/Step4";
+import ThankYouPage from "../components/ThankYouPage";
 
 function LoginPage() {
-  return (
-    <section className="bg-bg-neutral h-screen">
-      <div className="main-header relative">
-        <img src={bgSidebarMobile} />
+  const [currentStep, setCurrentStep] = useState(1);
 
-        <div className="absolute top-8 inset-0 step-container flex justify-center w-full">
-          <div className=" flex step-indicators gap-4">
-            <div className="rounded-full bg-skyblue w-[33px] h-[33px] flex items-center justify-center font-bold text-denim">
-              1
-            </div>
-            <div className="rounded-full w-[33px] h-[33px] flex items-center justify-center font-bold text-white border border-white">
-              2
-            </div>
-            <div className="rounded-full w-[33px] h-[33px] flex items-center justify-center font-bold text-white border border-white">
-              3
-            </div>
-            <div className="border border-white rounded-full bg-sky-400 w-[33px] h-[33px] flex items-center justify-center font-bold text-white">
-              4
-            </div>
-          </div>
+  const handleNextStep = () => {
+    setCurrentStep(currentStep + 1);
+  };
+
+  const handleGoBack = () => {
+    setCurrentStep(currentStep - 1);
+  };
+
+  return (
+    <section className="bg-bg-neutral h-screen md:h-fit  md:flex">
+      <div className="main-header relative">
+        <div>
+          <picture>
+            <source media="(min-width:376px)" srcSet={bgSidebarDesktop} />
+            <img src={bgSidebarMobile} />
+          </picture>
+
+          <StepIndicators currentStep={currentStep} />
+        </div>
+      </div>
+
+      <div className="md:bg-white m-content">
+        <div className="absolute md:static md:w-full top-24 form-div w-full flex justify-center">
+          {currentStep === 1 && <Step1 />}
+          {currentStep === 2 && <Step2 />}
+          {currentStep === 3 && <Step3 />}
+          {currentStep === 4 && <Step4 setCurrentStep={setCurrentStep} />}
+          {currentStep === 5 && <ThankYouPage />}
         </div>
 
-        <div className="absolute top-24 form-div w-full flex justify-center">
-          <div className="rounded-lg w-11/12 bg-white p-6">
-            <h1 className="text-denim text-3xl font-bold">Personal Info</h1>
-            <p className="text-grey py-2 font-medium">
-              Please provide your name, email address, and phone number.
-            </p>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="name" className="font-sm text-denim font-medium">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                placeholder="e.g. Stephen King"
-                className="border border-grey rounded-md p-2"
-              />
-            </div>
-          </div>
+        <div
+          className={`${
+            currentStep === 1 ? "justify-end" : "justify-between"
+          } button-at-footer bg-white absolute md:static inset-x-0 bottom-0 p-4 flex text-grey`}
+        >
+          <button
+            className={`${
+              currentStep > 1 && currentStep < 5 ? "block" : "hidden"
+            }`}
+            onClick={handleGoBack}
+          >
+            Go Back
+          </button>
+          <button
+            className={`${
+              currentStep > 3 ? "hidden" : ""
+            } bg-denim text-white p-3 rounded-lg hover:opacity-75`}
+            onClick={handleNextStep}
+          >
+            Next Step
+          </button>
+          <button
+            className={`${
+              currentStep === 4 ? "" : "hidden"
+            } bg-purple text-white p-3 rounded-lg hover:opacity-75`}
+            onClick={handleNextStep}
+          >
+            Confirm
+          </button>
         </div>
       </div>
     </section>

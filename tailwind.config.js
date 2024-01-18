@@ -14,10 +14,17 @@ export default {
       purple: "#483EFF",
       red: "#EE374A",
       skyblue: "#BEE2FD",
-      verylightgray: "#F8F9FF",
+      verylightgrey: "#F8F9FF",
       white: "#FFFFFF",
     },
-    extend: {},
+    fontFamily: {
+      ubuntu: ["Ubuntu", "sans-serif"],
+    },
+    extend: {
+      screens: {
+        xs: "375px",
+      },
+    },
   },
   plugins: [],
 };

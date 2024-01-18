@@ -2,7 +2,7 @@ import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
-    <main>
+    <main className="font-ubuntu">
       <LoginPage />
     </main>
   );
