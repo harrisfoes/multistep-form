@@ -10,6 +10,7 @@ import ThankYouPage from "../components/ThankYouPage";
 
 function LoginPage() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [isYearly, setIsYearly] = useState(false);
 
   const handleNextStep = () => {
     setCurrentStep(currentStep + 1);
@@ -24,8 +25,8 @@ function LoginPage() {
       <div className="main-header relative">
         <div>
           <picture>
-            <source media="(min-width:376px)" srcSet={bgSidebarDesktop} />
-            <img src={bgSidebarMobile} />
+            <source media="(min-width:768px)" srcSet={bgSidebarDesktop} />
+            <img src={bgSidebarMobile} className="w-full" />
           </picture>
 
           <StepIndicators currentStep={currentStep} />
@@ -35,9 +36,13 @@ function LoginPage() {
       <div className="md:bg-white m-content">
         <div className="absolute md:static md:w-full top-24 form-div w-full flex justify-center">
           {currentStep === 1 && <Step1 />}
-          {currentStep === 2 && <Step2 />}
-          {currentStep === 3 && <Step3 />}
-          {currentStep === 4 && <Step4 setCurrentStep={setCurrentStep} />}
+          {currentStep === 2 && (
+            <Step2 isYearly={isYearly} setIsYearly={setIsYearly} />
+          )}
+          {currentStep === 3 && <Step3 isYearly={isYearly} />}
+          {currentStep === 4 && (
+            <Step4 setCurrentStep={setCurrentStep} isYearly={isYearly} />
+          )}
           {currentStep === 5 && <ThankYouPage />}
         </div>
 

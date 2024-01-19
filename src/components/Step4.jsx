@@ -1,6 +1,6 @@
 import React from "react";
 
-function Step4({ setCurrentStep }) {
+function Step4({ setCurrentStep, isYearly }) {
   const handlePlanChange = () => {
     setCurrentStep(2);
   };
@@ -14,17 +14,21 @@ function Step4({ setCurrentStep }) {
       <div className="summary my-4 p-4 bg-verylightgrey">
         <div className="flex justify-between items-center">
           <div className="flex flex-col items-start py-2">
-            <span className="text-denim font-medium">Arcade (Monthly)</span>
+            <span className="text-denim font-medium">
+              Arcade ({isYearly ? "Yearly" : "Monthly"})
+            </span>
             <button className="text-grey underline" onClick={handlePlanChange}>
               Change
             </button>
           </div>
-          <div className="font-bold text-denim">$9/mo</div>
+          <div className="font-bold text-denim">
+            {isYearly ? "$90/yr" : "$9/mo"}
+          </div>
         </div>
         <div className="divider w-[98%] my-3 h-[0.5px] opacity-50 bg-grey"></div>
         <div className="flex justify-between items-center my-2">
           <span className="text-grey">Online service</span>
-          <div className="text-denim">$1/mo</div>
+          <div className="text-denim">{isYearly ? "$10/yr" : "$1/mo"}</div>
         </div>
         <div className="flex justify-between items-center my-2">
           <span className="text-grey">Larger storage</span>
