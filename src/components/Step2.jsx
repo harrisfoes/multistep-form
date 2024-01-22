@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import arcade from "../assets/images/icon-arcade.svg";
 import advanced from "../assets/images/icon-advanced.svg";
 import pro from "../assets/images/icon-pro.svg";
+import allPlans from "../data/planData.json";
 
-const allPlans = [
+const ballPlans = [
   {
     name: "arcade",
     image: arcade,
@@ -36,9 +37,11 @@ const Radio = ({
   isYearly,
   changeHandler,
 }) => {
-  console.log(plan, "planinside");
+  //console.log(plan, "planinside");
+  //console.log(image);
+  const baseUrl = "/multistep-form/";
   const capitalize = (name) => {
-    return name.charAt(0).upperCase() + name.slice(1);
+    return name.charAt(0).toUpperCase() + name.slice(1);
   };
   return (
     <>
@@ -49,7 +52,7 @@ const Radio = ({
         } block p-4 border w-full rounded-lg my-2`}
       >
         <div className="flex gap-2">
-          <img src={image} />
+          <img src={baseUrl + image} />
           <div className="flex flex-col">
             <span className="font-semibold text-denim">{capitalize(name)}</span>
             <span className="text-sm text-grey">
@@ -76,11 +79,11 @@ const Radio = ({
   );
 };
 
-function Step2({ isYearly, setIsYearly }) {
-  const [plan, setPlan] = useState("");
+function Step2({ isYearly, setIsYearly, plan, setPlan }) {
+  //console.log(plan, "this is the current plan");
 
   const handlePlanChange = (e) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     setPlan(e.target.value);
   };
 

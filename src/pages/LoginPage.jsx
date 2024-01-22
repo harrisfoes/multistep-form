@@ -7,10 +7,13 @@ import Step2 from "../components/Step2";
 import Step3 from "../components/Step3";
 import Step4 from "../components/Step4";
 import ThankYouPage from "../components/ThankYouPage";
+import addonData from "../data/addonData.json";
 
 function LoginPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [isYearly, setIsYearly] = useState(false);
+  const [plan, setPlan] = useState("");
+  const [addons, setAddOns] = useState(addonData);
 
   const handleNextStep = () => {
     setCurrentStep(currentStep + 1);
@@ -37,11 +40,23 @@ function LoginPage() {
         <div className="absolute md:static md:w-full top-24 form-div w-full flex justify-center">
           {currentStep === 1 && <Step1 />}
           {currentStep === 2 && (
-            <Step2 isYearly={isYearly} setIsYearly={setIsYearly} />
+            <Step2
+              isYearly={isYearly}
+              setIsYearly={setIsYearly}
+              plan={plan}
+              setPlan={setPlan}
+            />
           )}
-          {currentStep === 3 && <Step3 isYearly={isYearly} />}
+          {currentStep === 3 && (
+            <Step3 isYearly={isYearly} addons={addons} setAddOns={setAddOns} />
+          )}
           {currentStep === 4 && (
-            <Step4 setCurrentStep={setCurrentStep} isYearly={isYearly} />
+            <Step4
+              setCurrentStep={setCurrentStep}
+              isYearly={isYearly}
+              plan={plan}
+              addons={addons}
+            />
           )}
           {currentStep === 5 && <ThankYouPage />}
         </div>

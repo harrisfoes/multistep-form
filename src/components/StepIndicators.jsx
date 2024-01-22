@@ -1,7 +1,8 @@
 import React from "react";
 
 const StepNum = ({ currentStep, thisStepNumber }) => {
-  console.log(thisStepNumber, "thisStep");
+  //console.log(thisStepNumber, "thisStep");
+  //console.log("wawawa");
   return (
     <div
       className={`${
@@ -16,15 +17,18 @@ const StepNum = ({ currentStep, thisStepNumber }) => {
 };
 
 function StepIndicators({ currentStep }) {
-  console.log(currentStep, "currentStep");
+  //console.log(currentStep, "currentStep");
+  const steps = ["1", "2", "3", "4", "5"];
   return (
     <div className="absolute top-8 inset-0 step-container flex justify-center w-full">
       <div className=" flex step-indicators gap-4">
-        <StepNum currentStep={currentStep} thisStepNumber="1" />
-        <StepNum currentStep={currentStep} thisStepNumber="2" />
-        <StepNum currentStep={currentStep} thisStepNumber="3" />
-        <StepNum currentStep={currentStep} thisStepNumber={"4"} />
-        <StepNum currentStep={currentStep} thisStepNumber={5} />
+        {steps.map((step, index) => (
+          <StepNum
+            currentStep={currentStep}
+            thisStepNumber={step}
+            key={index}
+          />
+        ))}
       </div>
     </div>
   );

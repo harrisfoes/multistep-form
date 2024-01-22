@@ -1,9 +1,46 @@
 import React from "react";
+import allPlans from "../data/planData.json";
 
-function Step4({ setCurrentStep, isYearly }) {
+const AddOnListItem = ({ isYearly, addOnItem }) => {
+  return (
+    <div className="flex justify-between items-center my-2">
+      <span className="text-grey">{addOnItem.name}</span>
+      <div className="text-denim">
+        {isYearly ? addOnItem.yearlyPrice : addOnItem.monthlyPrice}
+      </div>
+    </div>
+  );
+};
+
+function Step4({ setCurrentStep, isYearly, plan, addons }) {
   const handlePlanChange = () => {
     setCurrentStep(2);
   };
+  const capitalize = (plan) => {
+    return plan.charAt(0).toUpperCase() + plan.slice(1);
+  };
+  const getPlanPricing = (selectedPlan) => {
+    const thisPlan = allPlans.filter((plan) => plan.name === selectedPlan)[0];
+    return isYearly ? thisPlan.yearlyPrice : thisPlan.monthlyPrice;
+  };
+  const selectedAddons = addons.filter((addon) => addon.checked);
+
+  const calculateTotal = (selectedPlan, selectedAddons) => {
+    const pricePropertyInt = isYearly ? "intPriceYr" : "intPriceMo";
+
+    const thisPlanPrice = allPlans.filter(
+      (plan) => plan.name === selectedPlan
+    )[0][pricePropertyInt];
+
+    const addOnTotal = selectedAddons.reduce((accum, addon) => {
+      if (addon.checked === true) {
+        return accum + addon[pricePropertyInt];
+      }
+    }, 0);
+
+    return thisPlanPrice + addOnTotal;
+  };
+
   return (
     <div className="step-1 rounded-lg w-11/12 bg-white p-6">
       <h1 className="text-denim text-3xl font-bold">Finishing up</h1>
@@ -15,28 +52,31 @@ function Step4({ setCurrentStep, isYearly }) {
         <div className="flex justify-between items-center">
           <div className="flex flex-col items-start py-2">
             <span className="text-denim font-medium">
-              Arcade ({isYearly ? "Yearly" : "Monthly"})
+              {capitalize(plan)} ({isYearly ? "Yearly" : "Monthly"})
             </span>
             <button className="text-grey underline" onClick={handlePlanChange}>
               Change
             </button>
           </div>
-          <div className="font-bold text-denim">
-            {isYearly ? "$90/yr" : "$9/mo"}
-          </div>
+          <div className="font-bold text-denim">{getPlanPricing(plan)}</div>
         </div>
         <div className="divider w-[98%] my-3 h-[0.5px] opacity-50 bg-grey"></div>
-        <div className="flex justify-between items-center my-2">
-          <span className="text-grey">Online service</span>
-          <div className="text-denim">{isYearly ? "$10/yr" : "$1/mo"}</div>
-        </div>
-        <div className="flex justify-between items-center my-2">
-          <span className="text-grey">Larger storage</span>
-          <div className="text-denim">$2/mo</div>
-        </div>
+
+        {selectedAddons.map((addon) => {
+          return (
+            <AddOnListItem
+              isYearly={isYearly}
+              addOnItem={addon}
+              key={addon.name}
+            />
+          );
+        })}
+
         <div className="flex justify-between items-center my-8">
           <span className="text-grey">Total (per month)</span>
-          <div className="text-purple text-xl font-semibold ">$12/mo</div>
+          <div className="text-purple text-xl font-semibold ">
+            ${calculateTotal(plan, selectedAddons)}/{isYearly ? "yr" : "mo"}
+          </div>
         </div>
       </div>
     </div>
