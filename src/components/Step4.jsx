@@ -42,7 +42,7 @@ function Step4({ setCurrentStep, isYearly, plan, addons }) {
   };
 
   return (
-    <div className="step-1 rounded-lg w-11/12 bg-white p-6">
+    <div className="step-1 rounded-lg bg-white pt-6  md:p-0 md:pt-12 md:px-2 lg:w-full lg:px-12">
       <h1 className="text-denim text-3xl font-bold">Finishing up</h1>
       <p className="text-grey py-2">
         Double-check everything looks OK before confirming.

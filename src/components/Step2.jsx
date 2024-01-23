@@ -49,10 +49,10 @@ const Radio = ({
         htmlFor={name}
         className={`${
           plan === name ? "border-purple shadow-md" : "border-lightgrey"
-        } block p-4 border w-full rounded-lg my-2`}
+        } block p-4 border w-full rounded-lg my-2 lg:w-[160px] lg:py-4 lg:flex-grow`}
       >
-        <div className="flex gap-2">
-          <img src={baseUrl + image} />
+        <div className="flex gap-2 lg:flex-col lg:justify-start lg:px-1 lg:gap-10">
+          <img src={baseUrl + image} className="max-w-[40px]" />
           <div className="flex flex-col">
             <span className="font-semibold text-denim">{capitalize(name)}</span>
             <span className="text-sm text-grey">
@@ -79,7 +79,7 @@ const Radio = ({
   );
 };
 
-function Step2({ isYearly, setIsYearly, plan, setPlan }) {
+function Step2({ isYearly, setIsYearly, plan, setPlan, errors }) {
   //console.log(plan, "this is the current plan");
 
   const handlePlanChange = (e) => {
@@ -92,27 +92,30 @@ function Step2({ isYearly, setIsYearly, plan, setPlan }) {
   };
 
   return (
-    <div className="step-1 rounded-lg w-11/12 bg-white p-6">
+    <div className="step-1 rounded-lg w-11/12 mx-auto md:pt-1 lg:px-8 lg:py-8 lg:w-full ">
       <h1 className="text-denim text-3xl font-bold">Select your plan</h1>
-      <p className="text-grey py-2">
-        You hve the option of monthly or yearly billing.
+      <p className="text-grey py-2 lg:py-4">
+        You have the option of monthly or yearly billing.
+        {errors.plan && <span className="mx-2 text-red">{errors.plan}</span>}
       </p>
 
       <form>
-        {allPlans.map((items) => (
-          <Radio
-            key={items.name}
-            name={items.name}
-            image={items.image}
-            monthlyPrice={items.monthlyPrice}
-            yearlyPrice={items.yearlyPrice}
-            plan={plan}
-            isYearly={isYearly}
-            changeHandler={handlePlanChange}
-          />
-        ))}
+        <div className="lg:flex lg:gap-6 lg:justify-evenly">
+          {allPlans.map((items) => (
+            <Radio
+              key={items.name}
+              name={items.name}
+              image={items.image}
+              monthlyPrice={items.monthlyPrice}
+              yearlyPrice={items.yearlyPrice}
+              plan={plan}
+              isYearly={isYearly}
+              changeHandler={handlePlanChange}
+            />
+          ))}
+        </div>
 
-        <div className="toggle-plan flex items-center gap-2 py-4 justify-between  w-3/4 mx-auto">
+        <div className="toggle-plan flex items-center gap-2 py-4 lg:pt-12 justify-between  w-3/4 mx-auto max-w-[240px] ">
           <span
             className={`${
               isYearly ? "text-grey" : "text-denim"

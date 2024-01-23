@@ -1,49 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Step1() {
+function Step1({ textFormData, setTextFormData, errors }) {
+  const handleChange = (e) => {
+    //console.log(e.target);
+    const { name, value } = e.target;
+    setTextFormData({ ...textFormData, [name]: value });
+  };
+
   return (
-    <div className="step-1 rounded-lg w-11/12 bg-white p-6">
-      <h1 className="text-denim text-3xl font-bold">Personal Info</h1>
-      <p className="text-grey py-2">
-        Please provide your name, email address, and phone number.
-      </p>
-
-      <div className="flex flex-col gap-2 py-2">
-        <label htmlFor="name" className="font-sm text-denim font-medium">
-          Name
-        </label>
-        <input
-          type="text"
-          id="name"
-          placeholder="e.g. Stephen King"
-          className="border border-grey rounded-md p-2"
-        />
-      </div>
-
-      <div className="flex flex-col gap-2 py-2">
-        <label htmlFor="name" className="font-sm text-denim font-medium">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          placeholder="e.g. stephenking@lorem.com"
-          className="border border-grey rounded-md p-2"
-        />
-      </div>
-
-      <div className="flex flex-col gap-2 py-2">
-        <label htmlFor="name" className="font-sm text-denim font-medium">
-          Phone Number
-        </label>
-        <input
-          type="number"
-          id="phone-number"
-          placeholder="e.g. +1 234 567 890"
-          className="border border-grey rounded-md p-2"
-        />
-      </div>
-    </div>
+    <>
+      <form className="md:pt-8 lg:px-14">
+        <h1 className="text-denim text-3xl font-bold">Personal Info</h1>
+        <p className="text-grey py-2">
+          Please provide your name, email address, and phone number.
+        </p>
+        <div className="flex flex-col gap-2 py-2">
+          <div className="text-red flex justify-between">
+            <label htmlFor="name" className="font-sm text-denim font-medium">
+              Name
+            </label>
+            {errors.name && <div>{errors.name}</div>}
+          </div>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={textFormData.name}
+            onChange={handleChange}
+            placeholder="e.g. Stephen King"
+            className={`${
+              errors.name ? "border-red" : "border-grey"
+            } border rounded-md p-2`}
+          />
+        </div>
+        <div className="flex flex-col gap-2 py-2">
+          <div className="text-red flex justify-between">
+            <label htmlFor="name" className="font-sm text-denim font-medium">
+              Email
+            </label>
+            {errors.email && <div>{errors.email}</div>}
+          </div>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={textFormData.email}
+            onChange={handleChange}
+            placeholder="e.g. stephenking@lorem.com"
+            className={`${
+              errors.email ? "border-red" : "border-grey"
+            } border rounded-md p-2`}
+          />
+        </div>
+        <div className="flex flex-col gap-2 py-2">
+          <div className="text-red flex justify-between">
+            <label htmlFor="name" className="font-sm text-denim font-medium">
+              Phone Number
+            </label>
+            {errors.number && <div>{errors.number}</div>}
+          </div>
+          <input
+            type="number"
+            id="number"
+            name="number"
+            value={textFormData.number}
+            onChange={handleChange}
+            placeholder="e.g. +1 234 567 890"
+            className={`${
+              errors.number ? "border-red" : "border-grey"
+            } border rounded-md p-2`}
+          />
+        </div>
+      </form>
+    </>
   );
 }
 
