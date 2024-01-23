@@ -1,32 +1,5 @@
 import React, { useState } from "react";
-import arcade from "../assets/images/icon-arcade.svg";
-import advanced from "../assets/images/icon-advanced.svg";
-import pro from "../assets/images/icon-pro.svg";
 import allPlans from "../data/planData.json";
-
-const ballPlans = [
-  {
-    name: "arcade",
-    image: arcade,
-    checked: false,
-    monthlyPrice: "$9/mo",
-    yearlyPrice: "$90yr",
-  },
-  {
-    name: "advanced",
-    image: advanced,
-    checked: false,
-    monthlyPrice: "$12/mo",
-    yearlyPrice: "$120yr",
-  },
-  {
-    name: "pro",
-    checked: false,
-    image: pro,
-    monthlyPrice: "$15/mo",
-    yearlyPrice: "$150yr",
-  },
-];
 
 const Radio = ({
   name,

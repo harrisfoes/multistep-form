@@ -51,8 +51,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [github](https://github.com/harrisfoes/multistep-form/)
+- Live Site URL: [Multistep-Form Live Site](https://harrisfoes.github.io/multistep-form/)
 
 ## My process
 
